@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .msg {
+      border-radius: 4px;
+      border: 2px solid red;
+      background-color: khaki;
+      padding: 10px;
+      text-align: center;
+      font-family: "Calibri", Arial, sans-serif;
+      margin-bottom: 10px;
+    }
+    .greet {
+      background-color: indigo;
+      border-radius: 8px;
+      color: white;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+      padding: 12px;
+      text-align: center;
+      font-family: "Calibri", Arial, sans-serif;
+      margin-bottom: 10px;
+    }
+    .warning-title {
+      color: white; 
+      background-color: red; 
+      text-align: center;
+    }
+    .warning-body {
+      color: black; 
+      background-color: yellow; 
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    // Função que recebe duas props e retorna um elemento JSX pronto
+    /*function Greeting({msg, name}) {
+      return <div className="greet">{msg}, {name}!</div>
+    }*/
+
+    // Usando arrow function. Props são recebidas como parâmetro dentro
+    // de um objeto (exigência do React)
+    const Greeting = ({msg, name}) => <div className="greet">{msg}, {name}!</div>
+
+    const greeting1 = Greeting({msg: 'Boa noite', name: 'Fausto'})
+
+    const Message = props => <div className="msg" title="função Message" {...props} /> 
+
+    const Warning = props => {
+      return (
+        <>
+          <div className="warning-title">AVISO</div>
+          <div className="warning-body" {...props} />
+        </>
+      )
+    }
+
+    /*
+      Usando a função que retorna um elemento JSX:
+      1) criando uma variável
+      2) chamando diretamente a função
+      3) Usando a função como se fosse uma tag (COMPONENTE)
+    */
+
+    let frase = 'Cuidado! Cão bravo.'
+
+    const container =
+      <>  { /* Fragment */ }
+        {greeting1}
+        {Greeting({msg: 'Olá', name: 'mundo'})}
+        <Greeting msg="Caramba" name="React" />
+        <p>Isto é um parágrafo.</p>
+        <hr />
+        <Message id="mensagem1" title="Mensagem de boas-vindas">Seja bem-vindo!</Message>
+        <Message className="greet">Mensagem simples.</Message>
+        <Message children="Outra mensagem." />
+        <Message>{frase}</Message>
+        <Warning id="warning1">Não beba o álcool gel</Warning>
+      </>
+ 
+    ReactDOM.render(container, document.getElementById('root'))
+
+  </script>
+  
+</body>
+</html>
