@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .soma {
+      border-radius: 5px;
+      border: 3px solid black;
+      padding: 5px;
+      margin: 5px;
+    }
+    .right {
+      text-align: right;
+      background-color: lightblue;
+    }
+    .center {
+      text-align: center;
+      background-color: lightyellow;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    // Componente que exibe a soma de dois números
+    // Temos duas props personalizadas, n1 e n2
+    // As props padrão são recebidas em ...props
+    const Soma = ({n1, n2, ...props}) => {
+      console.log(props)
+      return <div className="soma" {...props}>{n1 + n2}</div>
+    }
+
+    // Componentes que recebem apenas props padrão em formato fechado
+    const ParagRight = props => <div className="right" {...props} />
+    const ParagCenter = props => <div className="center" {...props} />
+
+    const container =
+      <>
+        { /* Props que não strings devem ser passadas entre {} */}
+        <Soma id="soma1" title="Resultado da soma de 19 com 23" n1={19} n2={23} />
+        
+        { /*
+          O "recheio" da tag corresponde à prop "children", que
+          pode ser passada de duas formas diferentes
+         */ }
+        <ParagCenter id="parag1">Centralizado</ParagCenter>
+
+        { /* 
+          Quando uma tag é "solteira" (isto é, não tem tag de fechamento)
+          ela OBRIGATORIAMENTE deve terminar com />
+        */ }
+        <ParagCenter id="parag2" children="Centralizado também" />
+        
+        <ParagRight id="parag3" title="Alinhado à direita">À direita</ParagRight>
+      </>
+
+    ReactDOM.render(container, document.getElementById('root'))
+
+  </script>
+  
+</body>
+</html>
