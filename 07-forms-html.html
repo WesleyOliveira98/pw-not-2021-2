@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <form id="form1">
+    <label for="campo-nome">Informe seu nome:</label><br>
+    <input id="campo-nome"><br>
+    <div id="debug"></div>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+
+    let nome
+
+    function handleChange(event) {
+
+      // Acessando diretamente o elemento id="campo-nome"
+      // nome = document.getElementById('campo-nome').value
+
+      // Acessando INDIRETAMENTE o elemento id="campo-nome"
+      // por meio do parâmetro event
+      // event.target corresponde ao elemento que disparou
+      // o evento
+      nome = event.target.value
+      
+      document.getElementById('debug').textContent = nome.toUpperCase()
+    }
+
+    function handleSubmit(event) {
+      // Evita o recarregamento da página
+      event.preventDefault()
+      alert(`Olá, ${nome}!`)
+    }
+
+    document.getElementById('campo-nome').addEventListener('keyup', handleChange)
+
+    document.getElementById('form1').addEventListener('submit', handleSubmit)
+
+  </script>
+
+</body>
+</html>

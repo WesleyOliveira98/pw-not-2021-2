@@ -54,7 +54,7 @@
     }>Large box</div>
 
     // Criando um componente personalizado
-    const CustomBox = ({style, size, ...props}) =>
+    const CustomBox = ({style, size = 'small', ...props}) =>
       <div className={`box box--${size}`} style={ { fontStyle: 'italic', ...style}} {...props} />
 
     const container = 
@@ -63,7 +63,13 @@
         {smallBox2}
         {mediumBox}
         {largeBox}
-        <CustomBox style={{ backgroundColor: 'limegreen', color: 'navy'} } size="medium">Custom Box 1</CustomBox>
+        
+        <CustomBox style={{ backgroundColor: 'limegreen', color: 'navy'} } size="medium" id="custom1">Custom Box 1</CustomBox>
+        
+        <CustomBox style={{ backgroundColor: 'tomato', color: 'yellow', fontWeight: 'bold'} } size="large">Custom Box 2</CustomBox>
+
+        <CustomBox style={{ fontStyle: 'normal', backgroundColor: 'sienna', color: 'limegreen'} }>Custom Box 3</CustomBox>
+
       </>
 
     ReactDOM.render(container, document.getElementById('root'))
