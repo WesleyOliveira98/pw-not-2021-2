@@ -17,13 +17,48 @@
   <script type="text/babel">
 
     const MeuForm = () => {
+
+      // let nome  // Variável comuns
+
+      /*
+        VARIÁVEL DE ESTADO
+        É uma variável especial que retém seu valor mesmo quando
+        o estado (conteúdo) do componente é alterado e este é
+        redesenhado.
+
+        Variáveis de estado são criadas com a função React.useState(),
+        que retorna um vetor com dois elementos:
+        1º: a variável de estado propriamente dita (somente leitura)
+        2º: uma função que deverá ser usada para atualizar o valor da
+            variável de estado
+
+        React.useState() tem como parâmetro o valor inicial da variável
+        de estado (é obrigatório especificar)
+      */
+
+      const [nome, setNome] = React.useState('')
+
+      const handleChange = event => {
+        // nome = document.getElementById('campo-nome').value // Acesso direto
+        // nome = event.target.value   // Acesso indireto
+        setNome(event.target.value)
+        
+        // Modo JS puro de modificar o conteúdo de um elemento
+        // com o valor de uma variável
+        // document.getElementById('debug').textContent = nome.toUpperCase()
+      }
+
+      const handleSubmit = event => {
+        alert(`Olá, ${nome}!`)
+      }
+
       return (
-        <form>
+        <form onSubmit={handleSubmit}>
           { /* Em JSX, o atributo HTML "for" é escrito como "htmlFor" porque 
                 o primeiro termo é uma palavra reservada em JavaScript */ }
           <label htmlFor="campo-nome">Informe seu nome:</label><br />
-          <input id="campo-nome" /><br />
-          <div id="debug"></div>
+          <input id="campo-nome" onChange={handleChange} /><br />
+          <div id="debug">{nome.toUpperCase()}</div>
           <button type="submit">Enviar</button>
         </form>
       )

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    // Vetor de objetos, que são os dados que serão mostrados
+    // na página
+    const allItems = [
+      {id: 'apple', value: '🍎 apple'},
+      {id: 'orange', value: '🍊 orange'},
+      {id: 'grape', value: '🍇 grape'},
+      {id: 'pear', value: '🍐 pear'},
+    ]
+
+    // Fruits é uma função de componente
+    function Fruits() {
+
+      // Variável de estado que mantém todos os itens
+      // que estão sendo exibidos na página em um determinado momento.
+      // Inicialmente, ela contém o mesmo conteúdo do vetor allItems
+      // (as quatro frutas).
+      const [items, setItems] = React.useState(allItems)
+
+      // Função que adiciona um novo item, e que é chamada pelo
+      // botão "add item"
+      function addItem() {
+
+        // Gera um vetor mapeado contendo apenas os ids das frutas:
+        // ['apple', 'orange', 'grape', 'pear']
+        const itemIds = items.map(i => i.id)
+
+        // Será adicionado ao vetor items o primeiro elemento de
+        // allItems cujo id não esteja incluído no vetor itemIds
+        setItems([...items, allItems.find(i => !itemIds.includes(i.id))])
+      }
+
+      // Função que remove um item, chamada pelo botão "remove"
+      function removeItem(item) {
+        // Retira a fruta removida dos itens por meio de filter()
+        setItems(items.filter(i => i.id !== item.id))
+      }
+
+      return (
+        <div className="keys">
+          <button disabled={items.length >= allItems.length} onClick={addItem}>
+            add item
+          </button>
+          <ul style={{listStyle: 'none', paddingLeft: 0}}>
+            {items.map(item => (
+              // 🐨 add a key prop to the <li> below. Set it to item.id
+              // No React, quando um vetor é renderizado com map()
+              // cada elemento gerado para os itens do vetor precisa
+              // ter uma prop "key" cujo valor precisa ser único
+              // para cada elemento.
+              <li key={item.id}>
+                <button onClick={() => removeItem(item)}>remove</button>{' '}
+                <label htmlFor={`${item.id}-input`}>{item.value}</label>{' '}
+                <input id={`${item.id}-input`} defaultValue={item.value} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    ReactDOM.render(<Fruits />, document.getElementById('root'))
+  
+  </script>
+  
+</body>
+</html>
