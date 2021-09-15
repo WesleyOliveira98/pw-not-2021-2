@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    /*
+      Usando os recursos do React (manupuladores de evento e useState),
+      escreva o nome completo da pessoa (EM MAIÚSCULAS) toda vez que houver 
+      alteração nos campos de nome ou sobrenome.
+
+      1) Criar um useState para armazenar o nome completo.
+      2) Criar uma função para manipular o evento onChange dos inputs. Nessa
+         função, deve-se ler os valores de ambos os inputs (via getElementById ou
+         querySelector), formar o nome completo em maiúsculas e guardá-lo 
+         na variável de estado.
+      3) Usar a variável de estado para atualizar o conteúdo da div do nome completo.
+    */
+
+    const CustomForm = () => {
+
+      const [nomeCompleto, setNomeCompleto] = React.useState('')
+
+      const handleChange = event => {
+        // let nome = document.getElementById('nome').value
+        // let sobrenome = document.getElementById('sobrenome').value
+        let nome = document.querySelector('#nome').value
+        let sobrenome = document.querySelector('#sobrenome').value
+        setNomeCompleto((nome + ' ' + sobrenome).toUpperCase())
+      }
+
+      return (
+        <form>
+          <div>
+            <label htmlFor="nome">Nome</label>
+            <input id="nome" onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="sobrenome">Sobrenome</label>
+            <input id="sobrenome" onChange={handleChange} />
+          </div>
+          <div id="nomeCompleto">{nomeCompleto}</div>
+        </form>
+      )
+    
+    }
+
+    ReactDOM.render(<CustomForm />, document.getElementById('root'))
+  
+  </script>
+  
+</body>
+</html>
