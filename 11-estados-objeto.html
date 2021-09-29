@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    function Teste() {
+      const [vetor, setVetor] = React.useState(['abacaxi', 'morango', 'uva'])
+
+      const [objeto, setObjeto] = React.useState({
+        marca: 'Fiat',
+        modelo: '147',
+        cor: 'branco'
+      })
+
+      function handleClick() {
+          // Mudar apenas o segundo elemento da variável de estado
+          let vetorTemp = [...vetor]  // Tira a cópia do vetor
+          vetorTemp[1] = 'jabuticaba'
+          setVetor(vetorTemp)
+      }
+
+      function handleClick2() {
+        // Mudar apenas o modelo do objeto
+        
+        /*let objetoTemp = {...objeto}  // Tira a cópia do objeto
+        objetoTemp.modelo = 'Tempra'
+        objetoTemp.cor = "roxo"
+        setObjeto(objetoTemp)*/
+
+        setObjeto({...objeto, modelo: 'Elba', cor: 'bege' })
+      }
+
+      return (
+        <>
+          <button onClick={handleClick}>Muda estado de vetor</button>
+          <div>
+            Primeiro elemento: {vetor[0]}<br />
+            Segundo elemento: {vetor[1]}<br />
+            Terceiro elemento: {vetor[2]}
+          </div>
+          <button onClick={handleClick2}>Muda estado de objeto (sentido estrito)</button>
+          <div>
+            Marca: {objeto.marca}<br />
+            Modelo: {objeto.modelo}<br />
+            Cor: {objeto.cor}
+          </div>
+        </>
+      )
+    }
+
+    ReactDOM.render(<Teste />, document.getElementById('root'))
+  
+  </script>
+  
+</body>
+</html>
