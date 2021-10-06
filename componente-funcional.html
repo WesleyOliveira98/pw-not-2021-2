@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    const FormSoma = () => {
+
+        const [num1, setNum1] = React.useState(0)
+        const [num2, setNum2] = React.useState(0)
+        const [soma, setSoma] = React.useState(0)
+
+        React.useEffect(() => {
+            setSoma(isNaN(num1) || isNaN(num2) ? '' : num1 + num2)
+        }, [num1, num2])
+                
+        const handleChange1 = event => setNum1(Number(event.target.value))
+            
+        const handleChange2 = event => setNum2(Number(event.target.value))
+                
+        return (
+            <form>
+                <div>
+                    <label htmlFor="num1">Primeiro número:</label><br />
+                    <input id="num1" type="number" value={num1} onChange={handleChange1} />
+                </div>
+                <div>
+                    <label htmlFor="num2">Segundo número:</label><br />
+                    <input id="num2" type="number" value={num2} onChange={handleChange2} />
+                </div>
+                <div>Soma: {soma}</div>
+            </form>
+        )
+
+    }
+
+    ReactDOM.render(<FormSoma />, document.getElementById('root'))
+
+  </script>
+
+</body>
+</html>
