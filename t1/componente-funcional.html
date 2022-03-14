@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:xd_Signature msdt:dt="string"></mso:xd_Signature>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">FAUSTO GONCALVES CINTRA</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:Order msdt:dt="string">400.000000000000</mso:Order>
+<mso:ComplianceAssetId msdt:dt="string"></mso:ComplianceAssetId>
+<mso:TemplateUrl msdt:dt="string"></mso:TemplateUrl>
+<mso:ReferenceId msdt:dt="string"></mso:ReferenceId>
+<mso:xd_ProgID msdt:dt="string"></mso:xd_ProgID>
+<mso:_ExtendedDescription msdt:dt="string"></mso:_ExtendedDescription>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">FAUSTO GONCALVES CINTRA</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:ContentTypeId msdt:dt="string">0x010100D6913FBF8C1A7A46A7F8AD33C58435C5</mso:ContentTypeId>
+<mso:TriggerFlowInfo msdt:dt="string"></mso:TriggerFlowInfo>
+<mso:_SourceUrl msdt:dt="string"></mso:_SourceUrl>
+<mso:_SharedFileIndex msdt:dt="string"></mso:_SharedFileIndex>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+  
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    const FormSoma = () => {
+
+        const [num1, setNum1] = React.useState(0)
+        const [num2, setNum2] = React.useState(0)
+        const [soma, setSoma] = React.useState(0)
+
+        React.useEffect(() => {
+            setSoma(isNaN(num1) || isNaN(num2) ? '' : num1 + num2)
+        }, [num1, num2])
+                
+        const handleChange1 = event => setNum1(Number(event.target.value))
+            
+        const handleChange2 = event => setNum2(Number(event.target.value))
+                
+        return (
+            <form>
+                <div>
+                    <label htmlFor="num1">Primeiro número:</label><br />
+                    <input id="num1" type="number" value={num1} onChange={handleChange1} />
+                </div>
+                <div>
+                    <label htmlFor="num2">Segundo número:</label><br />
+                    <input id="num2" type="number" value={num2} onChange={handleChange2} />
+                </div>
+                <div>Soma: {soma}</div>
+            </form>
+        )
+
+    }
+
+    ReactDOM.render(<FormSoma />, document.getElementById('root'))
+
+  </script>
+
+</body>
+</html>

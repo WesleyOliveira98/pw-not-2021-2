@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-bt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programação Web 2021/2 &bull; PROVA 1</title>
+  <style>
+        * {
+            font-family: Calibri, Arial, sans-serif;
+        }
+        body {
+            background: maroon;
+            background: linear-gradient(0deg, maroon 0%, coral 100%);
+            height: 100vh;
+            
+        }
+        main {
+            margin: 5%;
+            background-color: white;
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 5px 5px rgba(250, 250, 250, 0.2);
+        }
+        h1 {
+            color: maroon;
+            text-shadow: 2px 2px rgba(0, 100, 0, 0.2);
+            text-align: center;
+
+        }
+        .input-set, .result {
+            margin: 15px auto;
+            padding: 10px;
+            width: 50%;
+            text-align: center;
+        }
+        .input-set label {
+            display: block;
+            color: maroon
+        }
+        .result {
+            background-color: maroon;
+            color: white;
+            border-radius: 12px;
+        }
+        </style>
+</head>
+
+<body>
+    <main>
+        <h1>Cálculo do Índice de Massa Corporal (IMC)</h1>
+
+        <div id="root"></div>
+    </main>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    //Nome: Wesley Gabriel de Oliveira
+
+    //Componente Peso, recebe as props de valor e a função para executar ao ser alterado
+
+    function Peso({peso, onPesoChange}) {
+        
+        return (
+            <div className="input-set">
+                <label htmlFor="peso">Peso</label>
+                <input type="number" id="peso" value={peso} onChange={onPesoChange} />
+            </div>
+        )
+    }
+
+    //Componente Altura, recebe as props de valor e a função para executar ao ser alterado
+
+    function Altura({altura, onAlturaChange}) {
+        
+        return (
+            <div className="input-set">
+                <label htmlFor="altura">Altura</label>
+                <input type="number" id="altura" value={altura} onChange={onAlturaChange} />
+            </div>
+        )
+    }
+
+    //Componente Result, recebe as props com os valores de IMC e a Faixa
+
+    function Result({imc, faixa}) {
+        return (
+            <div className="result">
+                <div>{`IMC: ${imc}`}</div>
+                <div>{`Faixa: ${faixa}`}</div>
+            </div>
+        )
+    }
+
+    //Componente Imc (Pai), que será renderizado em nosso HTML na tag root
+
+    function Imc() {
+
+        //Variáveis de estado
+
+        const [peso, setPeso] = React.useState('')
+        const [altura, setAltura] = React.useState('')
+        const [imc, setImc] = React.useState('')
+        const [faixa, setFaixa] = React.useState('')
+
+        //Função useEffect, executa o calculo do IMC toda vez que o valor da variavel de estado peso ou a altura 
+        //for alterado
+
+        React.useEffect(() => {
+
+            // Atualiza os valores das variáveis de estado peso e altura
+
+            setPeso(peso)
+            setAltura(altura)
+
+            //Condicional, caso os valores das variáveis de estado peso ou altura forem nulos ou estiverem zerados, 
+            //setamos os valores de imc e faixa como nada "" e encerramos a execução da função
+
+            if(!peso || !altura || peso == 0 || altura == 0){
+                setImc("")
+                setFaixa("")
+                return
+            }
+
+            //Cálculo do IMC
+
+            let i = peso / (altura * altura)
+            setImc(i.toFixed(2))
+
+            //Após realizado o cálculo do IMC, condicionais para encontrar o valor da faixa
+            
+            if(i < 18.5) setFaixa("Peso baixo")
+            else if(i >= 18.5 && i < 25) setFaixa("Peso normal")
+            else if(i >= 25 && i < 30) setFaixa("Sobrepeso")
+            else if(i >= 30 && i < 35) setFaixa("Obesidade (Grau I)")
+            else if(i >= 35 && i < 40) setFaixa("Obesidade Severa (Grau II)")
+            else if(i >= 40) setFaixa("Obesidade Mórbida (Grau III)")
+            
+        }, [peso, altura])
+
+        //Retorna os componentes para renderização
+
+        return (
+            <>
+            
+            {<Peso peso={peso} onPesoChange={event => setPeso(event.target.value)} />}
+            {<Altura altura={altura} onAlturaChange={event => setAltura(event.target.value)} />}
+            {<Result imc={imc} faixa={faixa}/>}
+            
+            </>
+        )
+    }
+
+    //Renderiza o Componente Imc em nosso HTML na tag root
+
+    ReactDOM.render(<Imc />, document.getElementById('root'))
+
+  </script>
+
+</body>
+
+</html>

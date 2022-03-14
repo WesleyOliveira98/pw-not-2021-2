@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    class FormSoma extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          num1: 0,
+          num2: 0,
+          soma: 0
+        };
+      }
+
+      handleChange1(value) {
+        this.setState({ 
+          num1: Number(value)
+        });
+        this.setSoma();
+      }
+
+      handleChange2(value) {
+        this.setState({ 
+          num2: Number(value) 
+        });
+        this.setSoma();
+      }
+
+      setSoma(){
+        this.setState((state)=>({
+          soma: state.num1 + state.num2
+        }))
+      }
+
+      render() {
+        return (
+          <form>
+              <div>
+                  <label htmlFor="num1">Primeiro número:</label><br />
+                  <input id="num1" type="number" value={this.state.num1} onChange={(event) => this.handleChange1(event.target.value)} />
+              </div>
+              <div>
+                  <label htmlFor="num2">Segundo número:</label><br />
+                  <input id="num2" type="number" value={this.state.num2} onChange={(event) => this.handleChange2(event.target.value)} />
+              </div>
+              <div>Soma: {this.state.soma}</div>
+          </form>
+        );
+      }
+    }
+
+    ReactDOM.render(<FormSoma />, document.getElementById('root'))
+
+  </script>
+
+</body>
+</html>
